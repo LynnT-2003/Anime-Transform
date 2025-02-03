@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     "models/imageModel.js",
     "app/api/upload-to-cloudinary/route.js",
-    "components/mobile-sidebar.jsx"
+    "components/mobile-sidebar.jsx",
+    "app/history/[id]/HistoryDetailClient.jsx"
   ],
   "exclude": ["node_modules"]
 }

@@ -81,7 +81,7 @@ export default function MobileSidebar({ children }) {
               }`}
             >
               <Image src={"/logo.png"} width={50} height={64} alt="Logo" />
-              <h1 className="font-sans text-lg font-bold">StyleForge</h1>
+              <h1 className="font-sans text-lg font-bold">TYS 🚀</h1>
             </div>
             <button
               onClick={() => setExpanded((curr) => !curr)}

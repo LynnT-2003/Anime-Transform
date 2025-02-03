@@ -111,7 +111,7 @@ export function AppSidebar() {
 
               <SidebarMenuItem
                 className="py-5 ml-[-0.4rem] hover:cursor-pointer hover:bg-[#181818] transition-all duration-150 ease-linear"
-                onClick={() => router.push("/studio")}
+                onClick={() => router.push("/models")}
               >
                 <SidebarMenuButton
                   asChild
@@ -309,6 +309,30 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter className="border-t-2 border-gray-500">
+        <div className="w-full mb-0 flex gap-0 items-center justify-center">
+          {user ? (
+            <div className="w-full flex items-center py-2 ml-4">
+              <Image
+                src={user.photoURL || "/default.png"} // Fallback if photoURL is not available
+                alt={user.displayName || "User"}
+                width={36} // Set desigreen width
+                height={36} // Set desigreen height
+                className="rounded-full border border-white"
+                onClick={() => router.push("/Profile")}
+              />
+              <h1 className="text-base text-gray-300 ml-4">
+                {user.displayName}
+              </h1>
+            </div>
+          ) : (
+            <div className="flex h-full items-center justify-start my-3">
+              {/* <User2 className="w-6 h-6 text-[#101010]" /> */}
+              <h1 className="text-base opacity-75">User not signed in</h1>
+            </div>
+          )}
+        </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }

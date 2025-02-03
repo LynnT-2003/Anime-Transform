@@ -105,7 +105,7 @@ export default function RootLayout({
                   text="Studio"
                   active={false}
                   alert={false}
-                  route={"/Test"}
+                  route={"/models"}
                   onClick={""}
                 />
                 {/* <MobileSidebarItem

@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, CheckCircle2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
-// import { User } from "firebase/auth";
-// import { onAuthStateChange } from "@/lib/firebase";
+import { User } from "firebase/auth";
+import { onAuthStateChange } from "@/lib/firebase";
 import { buildAnimeTransformRequestBody } from "@/lib/services/imageGeneration";
 // import {
 //   FacebookShareButton,
@@ -18,19 +18,19 @@ import { buildAnimeTransformRequestBody } from "@/lib/services/imageGeneration";
 // } from "react-share";
 
 const UploadSuccessScreen = () => {
-  //   const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  //   useEffect(() => {
-  //     const unsubscribe = onAuthStateChange((user) => {
-  //       if (user) {
-  //         setUser(user);
-  //         console.log("User is now: ", user);
-  //       } else {
-  //         setUser(null);
-  //       }
-  //     });
-  //     return () => unsubscribe();
-  //   }, []);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChange((user) => {
+      if (user) {
+        setUser(user);
+        console.log("User is now: ", user);
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -96,13 +96,13 @@ const UploadSuccessScreen = () => {
       console.log("API Response:", data);
       setGeneratedImage(data.output.message);
 
-      //   if (!user) {
-      //     console.log(
-      //       "User is not logged in. Skipping image save to both Cloudinary and MongoDB..."
-      //     );
-      //   }
+      if (!user) {
+        console.log(
+          "User is not logged in. Skipping image save to both Cloudinary and MongoDB..."
+        );
+      }
 
-      if (data.output.message) {
+      if (data.output.message && user) {
         const base64Image = data.output.message;
         console.log("User is logged in. Saving...");
         const cloudinaryResponse = await fetch("/api/upload-to-cloudinary", {
@@ -114,37 +114,36 @@ const UploadSuccessScreen = () => {
         });
         const cloudinaryData = await cloudinaryResponse.json();
         console.log("Image saved! Cloudinary URL:", cloudinaryData.url);
+
+        if (cloudinaryData.url) {
+          // Save the response to MongoDB
+          const mongoBody = {
+            delayTime: data.delayTime,
+            executionTime: data.executionTime,
+            image: cloudinaryData.url,
+            prompt: "PrismaForge Special - Mystical Christmas Themed Portrait.",
+            userId: user?.uid,
+            username: user?.displayName,
+          };
+
+          // // console.log("Lets post to MongoDB later:", data);
+          console.log("Posting", mongoBody);
+          try {
+            const mongoResponse = await fetch("/api/savedImages", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(mongoBody),
+            });
+            console.log("MongoDB response status:", mongoResponse.status);
+            const mongoResponseBody = await mongoResponse.json();
+            console.log("MongoDB response body:", mongoResponseBody);
+          } catch (error) {
+            console.error("Error saving to MongoDB:", error);
+          }
+        }
       }
-
-      //     if (cloudinaryData.url) {
-      //       // Save the response to MongoDB
-      //       const mongoBody = {
-      //         delayTime: data.delayTime,
-      //         executionTime: data.executionTime,
-      //         image: cloudinaryData.url,
-      //         prompt: "PrismaForge Special - Mystical Christmas Themed Portrait.",
-      //         userId: user?.uid,
-      //         username: user?.displayName,
-      //       };
-
-      //       // // console.log("Lets post to MongoDB later:", data);
-      //       console.log("Posting", mongoBody);
-      //       try {
-      //         const mongoResponse = await fetch("/api/savedImages", {
-      //           method: "POST",
-      //           headers: {
-      //             "Content-Type": "application/json",
-      //           },
-      //           body: JSON.stringify(mongoBody),
-      //         });
-      //         console.log("MongoDB response status:", mongoResponse.status);
-      //         const mongoResponseBody = await mongoResponse.json();
-      //         console.log("MongoDB response body:", mongoResponseBody);
-      //       } catch (error) {
-      //         console.error("Error saving to MongoDB:", error);
-      //       }
-      //     }
-      //   }
     } catch (error) {
       console.error("Failed to generate image.", error);
     }

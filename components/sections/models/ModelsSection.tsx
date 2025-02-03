@@ -33,11 +33,11 @@ const ModelCard = ({ title, image }: { title: string; image: string }) => {
   };
 
   return (
-    <div className="flex flex-col gap-[10px] items-center justify-center w-[45%] lg:w-auto">
+    <div className="flex flex-col gap-[10px] items-center justify-center w-[45%] lg:w-auto aspect-square">
       <img
         src={image}
         alt="placeholder"
-        className="w-[300px] h-[300px] object-cover hover:cursor-pointer hover:opacity-55"
+        className="md:w-[300px] md:h-[300px] object-cover hover:cursor-pointer hover:opacity-55"
         onClick={() => modelClickedHandler(title, image)}
       />
       <h1 className="text-center">{title}</h1>
