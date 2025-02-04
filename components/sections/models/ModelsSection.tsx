@@ -33,14 +33,17 @@ const ModelCard = ({ title, image }: { title: string; image: string }) => {
   };
 
   return (
-    <div className="flex flex-col gap-[10px] items-center justify-center w-[45%] lg:w-auto aspect-square">
+    <div
+      className="w-[45%] md:w-[240px] hover:cursor-pointer hover:opacity-70"
+      key={title}
+      onClick={() => modelClickedHandler(title, image)}
+    >
       <img
         src={image}
-        alt="placeholder"
-        className="md:w-[300px] md:h-[300px] object-cover hover:cursor-pointer hover:opacity-55"
-        onClick={() => modelClickedHandler(title, image)}
+        alt=""
+        className="w-full h-[200px] md:h-[300px] object-cover object-top md:object-center rounded-lg"
       />
-      <h1 className="text-center">{title}</h1>
+      <h1 className="mt-1 text-center">{title}</h1>
     </div>
   );
 };
