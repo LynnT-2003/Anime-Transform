@@ -14,7 +14,11 @@ const LandingHeroSection = () => {
     <div className="transition-all duration-300 ease-in-out px-5 md:px-0">
       <div className="flex flex-col gap-[25px] ">
         <h1 className="text-center">Redefine yourself in Anime Form.</h1>
-        <img src="https://placehold.co/600x400.png" alt="placeholder" />
+        <img
+          src="/landing.png"
+          alt="placeholder"
+          className="w-[600px] h-[400px] object-cover"
+        />
       </div>
 
       <div className="flex flex-col gap-[15px] items-center justify-center mt-[25px]">

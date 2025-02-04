@@ -12,7 +12,7 @@ const OnboardingSection = () => {
       <h1 className="text-2xl font-sans text-center mb-12">
         How to use our app
       </h1>
-      <div className="flex flex-wrap items-center justify-center gap-y-[20px] gap-[20px] lg:gap-[50px]">
+      <div className="flex flex-wrap items-center justify-center gap-y-[25px] gap-[20px] lg:gap-[50px]">
         {steps.map((step) => (
           <TutorialStepCard
             key={step.id}
@@ -41,8 +41,8 @@ const TutorialStepCard = ({
   image: string;
 }) => {
   return (
-    <div className="flex flex-col gap-[10px] items-center justify-center w-[45%] lg:w-auto">
-      <img src={image} alt="placeholder" />
+    <div className="flex flex-col gap-[10px] items-center justify-center w-[45%] md:w-[25%]">
+      <img src={image} alt="placeholder" className="w-full h-full" />
       <h1 className="text-center">{title}</h1>
     </div>
   );
