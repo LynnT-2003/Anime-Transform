@@ -178,7 +178,7 @@ const UploadSuccessScreen = () => {
       {!generatedImage && !loading && (
         <div className="px-0 md:px-36 items-center justify-center flex flex-col h-[90dvh]">
           <h1 className="text-center my-6 font-sans font-semibold text-2xl">
-            Image Uploaded Successfully
+            Image Uploaded Successfully !
           </h1>
           <div className="flex flex-col items-center justify-center px-12 md:px-0">
             <div className="flex gap-[5%]">
@@ -195,12 +195,12 @@ const UploadSuccessScreen = () => {
               />
             </div>
 
-            <div className="py-6 md:py-6 flex md:flex-row flex-col space-y-4 justify-between w-full">
+            <div className="py-6 md:py-6 flex md:flex-row flex-col space-y-4 md:space-y-0 justify-between w-full">
               <button
-                onClick={handleOnClickRetakePhoto}
+                onClick={handleOnClickReselectStyle}
                 className="text-xs md:text-lg border-[0.25px] border-white text-white rounded-sm py-2 md:py-4 px-4 md:px-24 font-sans hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
               >
-                Retake Photo
+                Reselect Style
               </button>
               <button
                 onClick={handleOnClickReselectStyle}
@@ -210,7 +210,7 @@ const UploadSuccessScreen = () => {
               </button>
               <button
                 onClick={handleOnClickContinue}
-                className="bg-white text-black text-xs md:text-lg border-[0.25px] border-white md:text-white rounded-sm py-2 md:py-4 px-4 md:px-24 font-sans hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+                className="bg-white text-black text-xs md:text-lg border-[0.25px] border-white rounded-sm py-2 md:py-4 px-4 md:px-24 font-sans hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
               >
                 Continue
               </button>
