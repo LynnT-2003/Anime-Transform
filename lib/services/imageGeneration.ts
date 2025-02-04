@@ -7,7 +7,7 @@ export const buildAnimeTransformRequestBody = (
       workflow: {
         "6": {
           inputs: {
-            text: "A cinematic, high-drama anime scene of a character in Ufotable style, wielding a katana. Intense lighting, dynamic motion, and a powerful, atmospheric composition.",
+            text: "A cinematic, high-drama anime scene of a character in Ufotable style. Intense lighting, dynamic motion, and a powerful, atmospheric composition.",
             clip: ["11", 0],
           },
           class_type: "CLIPTextEncode",
