@@ -35,7 +35,7 @@ const UploadSuccessScreen = () => {
 
   const [loading, setLoading] = useState(false);
   const [base64String, setBase64String] = useState<string | null>(null);
-  const [imageRef, setImageRef] = useState<string | null>(null);
+  const [imageRef, setImageRef] = useState<string | null>("");
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [isCopied, setIsCopied] = useState(false);
 
@@ -56,7 +56,17 @@ const UploadSuccessScreen = () => {
   const handleOnClickGoBack = () => {
     window.history.back();
     localStorage.removeItem("uploadedFile");
-    localStorage.removeItem("template");
+    localStorage.removeItem("ImageReferenceUrl");
+  };
+
+  const handleOnClickRetakePhoto = () => {
+    localStorage.removeItem("uploadedFile");
+    router.push("/image-upload");
+  };
+
+  const handleOnClickReselectStyle = () => {
+    localStorage.removeItem("ImageReferenceUrl");
+    router.push("/models");
   };
 
   const handleOnClickContinue = async () => {
@@ -68,8 +78,6 @@ const UploadSuccessScreen = () => {
       /^data:image\/\w+;base64,/,
       ""
     );
-
-    // console.log("Trimmed base64 string:", trimmedBased64String);
 
     const body = buildAnimeTransformRequestBody(trimmedBased64String, imageRef);
     console.log("Body:", body);
@@ -168,43 +176,45 @@ const UploadSuccessScreen = () => {
   return (
     <div className="h-screen w-full flex flex-col items-center">
       {!generatedImage && !loading && (
-        <div className="sm:w-[35%] h-[90%] flex flex-col items-center justify-center">
-          <h1 className="mx-12 text-center text-white pt-[1.7rem] text-2xl font-semibold font-sans motion-preset-slide-right">
-            Image Uploaded <br />
-            Successfully!
+        <div className="px-0 md:px-36 items-center justify-center flex flex-col h-[90dvh]">
+          <h1 className="text-center my-6 font-sans font-semibold text-2xl">
+            Image Uploaded Successfully
           </h1>
-          <div className="mx-12 relative aspect-square mt-7 rounded-lg ">
-            <img
-              src={base64String}
-              className="w-full aspect-square rounded-lg opacity-25 border-[12px] border-green-700 object-cover motion-preset-expand motion-duration-300"
-            />
-            <div className="w-[80%] h-[80%] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center justify-center">
-              <CheckCircle2Icon
-                className="w-[40%] h-[40%] text-green-500 motion-preset-pop motion-duration-1000"
-                style={{
-                  transformOrigin: "center",
-                }}
+          <div className="flex flex-col items-center justify-center px-12 md:px-0">
+            <div className="flex gap-[5%]">
+              {" "}
+              <img
+                src={base64String}
+                alt="Uploaded Image"
+                className="w-[47.5%] aspect-square object-cover"
               />
-              <h1 className="text-center text-white pt-4 text-md font-semibold font-sans opacity-100 motion-preset-expand motion-duration-300">
-                Your new Image ready
-              </h1>
-              <h1 className="text-center text-white pt-0 text-md font-semibold font-sans opacity-100 motion-preset-expand motion-duration-300">
-                to be generated.
-              </h1>
+              <img
+                src={imageRef || ""}
+                alt="Reference Image"
+                className="w-[47.5%] aspect-square object-cover"
+              />
             </div>
-          </div>
 
-          <div className="px-12 flex mt-7 items-center justify-between space-x-4 w-full">
-            <Button
-              className="w-full"
-              variant="default"
-              onClick={handleOnClickGoBack}
-            >
-              Go Back
-            </Button>
-            <Button className="w-full" onClick={handleOnClickContinue}>
-              Continue <ArrowRightIcon className="w-4 h-5 ml-2" />
-            </Button>
+            <div className="py-6 md:py-6 flex md:flex-row flex-col space-y-4 justify-between w-full">
+              <button
+                onClick={handleOnClickRetakePhoto}
+                className="text-xs md:text-lg border-[0.25px] border-white text-white rounded-sm py-2 md:py-4 px-4 md:px-24 font-sans hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+              >
+                Retake Photo
+              </button>
+              <button
+                onClick={handleOnClickReselectStyle}
+                className="text-xs md:text-lg border-[0.25px] border-white text-white rounded-sm py-2 md:py-4 px-4 md:px-24 font-sans hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+              >
+                Reselect Style
+              </button>
+              <button
+                onClick={handleOnClickContinue}
+                className="bg-white text-black text-xs md:text-lg border-[0.25px] border-white md:text-white rounded-sm py-2 md:py-4 px-4 md:px-24 font-sans hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
+              >
+                Continue
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -232,17 +242,6 @@ const UploadSuccessScreen = () => {
       )}
 
       {generatedImage && !loading && (
-        // <div className="">
-        //   <h1 className="mx-12 pt-[1.7rem] text-center text-2xl font-semibold font-sans motion-preset-slide-right">
-        //     Image Generated!
-        //   </h1>
-        //   <div className="relative mx-12 mt-7 rounded-lg flex items-center justify-center">
-        //     <img
-        //       src={`data:image/png;base64,${generatedImage}`} // Update the format if needed
-        //       className="w-full sm:w-[40%] aspect-square rounded-lg object-cover motion-preset-expand motion-duration-500"
-        //     />
-        //   </div>
-        // </div>
         <div className="w-[80%] sm:w-[35%] h-[90%] flex flex-col items-center justify-center">
           <h1 className="mx-12 text-center text-white pt-[1.7rem] text-2xl font-semibold font-sans motion-preset-slide-right">
             Generation Result
