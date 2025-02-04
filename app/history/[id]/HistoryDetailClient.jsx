@@ -72,7 +72,7 @@ export default function HistoryDetailClient({ imageId }) {
             className="w-full aspect-square object-cover rounded-t-xl"
           />
         </div>
-        <div className="w-[90%] sm:w-[30rem] space-x-[5%] mt-0 flex items-center justify-center py-2 rounded-b-xl">
+        {/* <div className="w-[90%] sm:w-[30rem] space-x-[5%] mt-0 flex items-center justify-center py-2 rounded-b-xl">
           <FacebookShareButton
             url={`https://prismaforge.vercel.app/history/${imageId}`}
             hashtag="#prismaforge"
@@ -96,7 +96,7 @@ export default function HistoryDetailClient({ imageId }) {
           >
             <RedditIcon size={32} round={true} />
           </RedditShareButton>
-        </div>
+        </div> */}
         <div className="flex items-center mt-4">
           <h1 className="text-white font-sans text-[0.5rem] sm:text-xs font-extralight">
             Support us by sharing our app with family and friends
