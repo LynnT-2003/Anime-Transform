@@ -2,13 +2,31 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+import { onAuthStateChange } from "@/lib/firebase";
+import { signInWithGoogle } from "@/lib/firebase";
+import { User } from "firebase/auth";
 
 const LandingHeroSection = () => {
   const router = useRouter();
 
+  const [user, setUser] = useState<User | null>(null);
+
   const generateClickHandler = () => {
     router.push("/onboarding");
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChange((user) => {
+      if (user) {
+        setUser(user);
+        console.log("User is now: ", user);
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className="transition-all duration-300 ease-in-out px-5 md:px-0">
@@ -32,9 +50,15 @@ const LandingHeroSection = () => {
           Transform Now
         </Button>
 
-        <Button className="w-fit px-5" variant="outline">
-          Sign in With Google
-        </Button>
+        {!user && (
+          <Button
+            className="w-fit px-5"
+            variant="outline"
+            onClick={signInWithGoogle}
+          >
+            Sign in With Google
+          </Button>
+        )}
       </div>
     </div>
   );
