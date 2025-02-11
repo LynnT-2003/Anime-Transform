@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { models } from "@/constants/models";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const ModelsPage = () => {
   const router = useRouter();
@@ -25,11 +25,18 @@ const ModelsPage = () => {
 
 const ModelCard = ({ title, image }: { title: string; image: string }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const modelClickedHandler = (title: string, image: string) => {
     localStorage.setItem("selectedModel", title);
     localStorage.setItem("ImageReferenceUrl", image);
-    router.push("/image-upload");
+    
+    const fromParam = searchParams.get('from');
+    if (fromParam === 'upload-success') {
+      router.push("/image-upload/upload-success");
+    } else {
+      router.push("/image-upload");
+    }
   };
 
   return (
