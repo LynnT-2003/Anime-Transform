@@ -32,7 +32,7 @@ const LandingHeroSection = () => {
     <div className="transition-all duration-300 ease-in-out px-5 md:px-0">
       <div className="flex flex-col gap-[27.5px] ">
         <h1 className="font-sans text-3xl font-semibold text-center">
-          Redefine yourself in Anime Form
+          Redefine yourself in Anime
         </h1>
         <img
           src="/landing.png"

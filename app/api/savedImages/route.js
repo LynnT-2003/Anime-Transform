@@ -50,7 +50,7 @@ export async function POST(req) {
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
-    const userId = searchParams.get("userId"); // Get userId from query parameters
+    const userId = searchParams.get("userId");
 
     await connectMongoDB(); // Ensure MongoDB is connected
 
