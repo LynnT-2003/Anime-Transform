@@ -31,6 +31,15 @@ const TestPage = () => {
     };
   }, [isCameraOpen]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedFile = localStorage.getItem("uploadedFile");
+      if (storedFile) {
+        router.push("/image-upload/upload-success");
+      }
+    }
+  }, []);
+
   const handleCapture = () => {
     console.log("Camera clicked");
     if (webcamRef.current) {

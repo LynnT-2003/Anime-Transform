@@ -196,10 +196,10 @@ const UploadSuccessScreen = () => {
 
             <div className="py-6 md:py-6 flex md:flex-row flex-col space-y-4 md:space-y-0 space-x-0 md:space-x-4 items-center justify-between w-full">
               <button
-                onClick={handleOnClickReselectStyle}
+                onClick={handleOnClickRetakePhoto}
                 className="w-full text-xs md:text-lg border-[0.25px] border-white text-white rounded-sm py-2 md:py-3 px-4 font-sans hover:bg-white hover:text-black transition-all duration-300 ease-in-out"
               >
-                Reselect Style
+                Retake Photo
               </button>
               <button
                 onClick={handleOnClickReselectStyle}
