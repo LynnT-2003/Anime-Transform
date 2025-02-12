@@ -17,6 +17,7 @@ const LandingHeroSection = () => {
   };
 
   useEffect(() => {
+    localStorage.clear();
     const unsubscribe = onAuthStateChange((user) => {
       if (user) {
         setUser(user);
